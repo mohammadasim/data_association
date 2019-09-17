@@ -60,3 +60,12 @@ Post.create({
     }
 }
     );
+
+User.findOne({ name: "Merry Christmas"}).populate("posts").exec((err, foundUser)=>{
+    if(err){
+        console.log("An error occured while retrieving user ", err);
+    }
+    else{
+        console.log(foundUser);
+    }
+});
