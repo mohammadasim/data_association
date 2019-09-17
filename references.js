@@ -14,6 +14,30 @@ db.once('open', function () {
     console.log("We are connected to the database!!");
 });
 
+User.findOne({name: "Merry Christmas"}, (err, foundUser)=>{
+    if(err){
+        console.log("Error happended while finding user ", err);
+    }
+    else{
+        Post.findOne({title: "How to boil an egg"},(err,foundPost)=>{
+            if(err){
+                console.log("Error happened while finding Post", err);
+            }
+            else{
+                foundUser.posts.push(foundPost);
+                foundUser.save((err, updatedUser)=>{
+                    if(err){
+                        console.log("Error happened while updating user", err);
+                    }
+                    else{
+                        console.log(updatedUser);
+                    }
+                });
+            }
+        });
+    }
+});
+
 Post.create({
     title: "how to boil rice",
     content: "just put rice in the water with salt"
